@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <title>ИАРА - Информационна Система</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f6f9; }
+        header { background-color: #004085; color: white; padding: 15px; text-align: center; }
+        nav { background-color: #343a40; display: flex; justify-content: center; }
+        nav a { color: white; padding: 14px 20px; text-decoration: none; text-align: center; }
+        nav a:hover { background-color: #495057; }
+        .container { padding: 20px; max-width: 1200px; margin: auto; background: white; margin-top: 20px; box-shadow: 0 0 10px rgba(0,0,0,0.1); minimum-height: 400px; }
+        footer { text-align: center; padding: 20px; font-size: 0.9em; color: #6c757d; margin-top: 40px; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h2>ИАРА - Изпълнителна агенция по рибарство и аквакултури</h2>
+</header>
+
+<nav>
+    <a href="{{ url_for('home') }}">Табло</a>
+    <a href="{{ url_for('ships') }}">Регистър Кораби</a>
+    <a href="{{ url_for('permits') }}">Разрешителни</a>
+    <a href="{{ url_for('logbook') }}">Електронен Дневник</a>
+    <a href="{{ url_for('tickets') }}">Любителски Билети</a>
+    <a href="{{ url_for('inspections') }}">Инспекции</a>
+</nav>
+
+<div class="container">
+    {% block content %}{% endblock %}
+</div>
+
+<footer>
+    <p>&copy; 2026 ИАРА Информационна Система. Разработено по задание на ТехноЛогика.</p>
+</footer>
+
+</body>
+</html>

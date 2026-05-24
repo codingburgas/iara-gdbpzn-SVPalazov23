@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Издаване на Любителски Риболовен Билет</h2>
+<p>Моля, въведете данните на риболовеца за автоматично изчисляване на таксата.</p>
+
+<form action="/tickets/calculate" method="POST" style="max-width: 500px; background: #f8f9fa; padding: 20px; border-radius: 5px; border: 1px solid #dee2e6;">
+    <div style="margin-bottom: 15px;">
+        <label>Три имена:</label><br>
+        <input type="text" name="name" required style="width: 100%; padding: 8px; margin-top: 5px;">
+    </div>
+    
+    <div style="margin-bottom: 15px;">
+        <label>ЕГН:</label><br>
+        <input type="text" name="egn" required style="width: 100%; padding: 8px; margin-top: 5px;">
+    </div>
+
+    <div style="margin-bottom: 15px;">
+        <label>Период на валидност:</label><br>
+        <select name="duration" style="width: 100%; padding: 8px; margin-top: 5px;">
+            <option value="1_week">1 Седмица - 4.00 лв.</option>
+            <option value="1_month">1 Месец - 8.00 лв.</option>
+            <option value="6_months">6 Месеца - 15.00 лв.</option>
+            <option value="1_year">1 Година - 25.00 лв.</option>
+        </select>
+    </div>
+
+    <div style="margin-bottom: 15px;">
+        <label>Статус:</label><br>
+        <input type="checkbox" name="is_pensioner" value="yes"> Лицето е пенсионер (50% намаление)
+    </div>
+
+    <div style="margin-bottom: 15px;">
+        <label>Номер на решение от ТЕЛК (ако има такова):</label><br>
+        <input type="text" name="telk" placeholder="Оставете празно, ако няма" style="width: 100%; padding: 8px; margin-top: 5px;">
+    </div>
+
+    <button type="submit" style="background: #28a745; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer;">Изчисли и Издай</button>
+</form>
+{% endblock %}
