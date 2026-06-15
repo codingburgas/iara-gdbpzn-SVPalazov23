@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Издаване на Разрешителни за Стопански Риболов</h2>
+<p>Управление и регистрация на активни разрешителни за стопански риболов по квоти и уреди.</p>
+
+<form action="/permits" method="POST" style="max-width: 600px; background: #f8f9fa; padding: 20px; border-radius: 5px; border: 1px solid #dee2e6; margin-bottom: 30px;">
+    <h3>Ново разрешително</h3>
+    
+    <div style="margin-bottom: 12px;">
+        <label>Изберете кораб (от регистъра):</label><br>
+        <select name="ship_id" required style="width: 100%; padding: 8px; margin-top: 5px;">
+            <option value="">-- Изберете кораб от списъка --</option>
+            {% for ship in ships %}
+            <option value="{{ ship[0] }}">{{ ship[1] }} - {{ ship[3] }} ({{ ship[4] }})</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div style="margin-bottom: 12px;">
+        <label>Номер на разрешително:</label><br>
+        <input type="text" name="permit_number" required style="width: 100%; padding: 6px;" placeholder="напр. Р-2026-XXXX">
+    </div>
+
+    <div style="margin-bottom: 12px;">
+        <label>Разрешени риболовни уреди:</label><br>
+        <input type="text" name="fishing_gear" required style="width: 100%; padding: 6px;" placeholder="напр. Хрилни мрежи, Тралове">
+    </div>
+
+    <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+        <div style="flex: 1;">
+            <label>Валидно от:</label><br>
+            <input type="date" name="valid_from" required style="width: 100%; padding: 6px;">
+        </div>
+        <div style="flex: 1;">
+            <label>Валидно до:</label><br>
+            <input type="date" name="valid_to" required style="width: 100%; padding: 6px;">
+        </div>
+    </div>
+
+    <button type="submit" style="background: #28a745; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer;">Издай Разрешително</button>
+</form>
+
+<hr>
+
+<h3>Списък на активните разрешителни</h3>
+<table border="1" cellpadding="8" style="width: 100%; border-collapse: collapse; background: white; margin-top: 15px; border-color: #dee2e6;">
+    <thead style="background: #343a40; color: white;">
+        <tr>
+            <th>Номер</th>
+            <th>Кораб (CFR)</th>
+            <th>Разрешени уреди</th>
+            <th>Валидност</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for permit in permits %}
+        <tr>
+            <td><strong>{{ permit[2] }}</strong></td>
+            <td>{{ permit[5] }}</td> <td>{{ permit[3] }}</td>
+            <td>От: {{ permit[4] }} <br> До: {{ permit[1] }}</td>
+        </tr>
+        {% else %}
+        <tr>
+            <td colspan="4" style="text-align: center; color: #6c757d;">Няма издадени разрешителни.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

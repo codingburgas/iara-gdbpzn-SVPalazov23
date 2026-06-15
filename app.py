@@ -10,13 +10,73 @@ init_db()
 def home():
     return render_template('home.html')
 
-@app.route('/ships')
+@app.route('/ships', methods=['GET', 'POST'])
 def ships():
-    return render_template('ships.html')
+    conn = sqlite3.connect(DATABASE_PATH)
+    cursor = conn.cursor()
 
-@app.route('/permits')
+    # Ако инспекторът изпрати формата (POST заявка)
+    if request.method == 'POST':
+        intl_number = request.form.get('intl_number')
+        call_sign = request.form.get('call_sign')
+        markings = request.form.get('markings')
+        owner_name = request.form.get('owner_name')
+        captain_name = request.form.get('captain_name')
+        length = request.form.get('length')
+        width = request.form.get('width')
+        power = request.form.get('power')
+
+        try:
+            cursor.execute('''
+                INSERT INTO ships (intl_number, call_sign, markings, owner_name, captain_name, length, width, power)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            ''', (intl_number, call_sign, markings, owner_name, captain_name, length, width, power))
+            conn.commit()
+        except sqlite3.IntegrityError:
+            # Предотвратява грешка, ако се въведе кораб с вече съществуващ CFR номер
+            pass
+
+    # Извличане на всички кораби от базата данни, за да ги покажем в таблицата
+    cursor.execute('SELECT * FROM ships')
+    all_ships = cursor.fetchall()
+    conn.close()
+
+    return render_template('ships.html', ships=all_ships)
+
+@app.route('/permits', methods=['GET', 'POST'])
 def permits():
-    return render_template('permits.html')
+    conn = sqlite3.connect(DATABASE_PATH)
+    cursor = conn.cursor()
+
+    # 1. Ако инспекторът изпрати формата за ново разрешително (POST)
+    if request.method == 'POST':
+        ship_id = request.form.get('ship_id')
+        permit_number = request.form.get('permit_number')
+        fishing_gear = request.form.get('fishing_gear')
+        valid_from = request.form.get('valid_from')
+        valid_to = request.form.get('valid_to')
+
+        cursor.execute('''
+            INSERT INTO permits (ship_id, permit_number, fishing_gear, valid_from, valid_to)
+            VALUES (?, ?, ?, ?, ?)
+        ''', (ship_id, permit_number, fishing_gear, valid_from, valid_to))
+        conn.commit()
+
+    # 2. Взимаме всички кораби, за да напълним падащото меню във формата
+    cursor.execute('SELECT id, intl_number, markings, owner_name FROM ships')
+    all_ships = cursor.fetchall()
+
+    # 3. Взимаме разрешителните, като ги свързваме (JOIN) с таблицата на корабите, за да знаем кой кораб кое разрешително има
+    cursor.execute('''
+        SELECT permits.id, permits.valid_to, permits.permit_number, permits.fishing_gear, permits.valid_from, ships.intl_number 
+        FROM permits 
+        JOIN ships ON permits.ship_id = ships.id
+    ''')
+    all_permits = cursor.fetchall()
+    
+    conn.close()
+
+    return render_template('permits.html', ships=all_ships, permits=all_permits)
 
 @app.route('/logbook')
 def logbook():
