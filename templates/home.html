@@ -1,6 +1,51 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Добре дошли в централния портал на ИАРА</h1>
-<p>Изберете опция от горното меню за управление на корабните данни, издаване на любителски риболовни билети или регистриране на мобилни инспекции.</p>
+<div style="max-width: 900px; margin: 0 auto;">
+    <div style="background: linear-gradient(135deg, #e0f2fe 0%, #f0f9ff 100%); padding: 40px; border-radius: 20px; margin-bottom: 35px; border: 1px solid #bae6fd; display: flex; align-items: center; gap: 30px;">
+        <div style="flex: 1;">
+            <h2 style="font-size: 30px; color: #0369a1; margin-bottom: 12px;">Информационна система на ИАРА</h2>
+            <p style="font-size: 15px; margin-bottom: 0; color: #0c4a6e;">
+                Добре дошли в централния софтуерен регистър за дигитално управление, контрол на риболовната дейност и обработка на разрешителни.
+            </p>
+        </div>
+        <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=180&h=130&q=80" style="border-radius: 14px; object-fit: cover; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05);" alt="Морски съд">
+    </div>
+
+    <h3 style="font-size: 19px; font-weight: 700; color: #0f172a; margin-bottom: 20px;">Наръчник за работа с платформата</h3>
+    
+    <div style="display: flex; flex-direction: column; gap: 14px;">
+        <div style="background: white; padding: 20px; border-radius: 14px; border: 1px solid #e2e8f0; display: flex; gap: 20px; align-items: center;">
+            <div style="background: #e0f2fe; color: #0284c7; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0;">1</div>
+            <div>
+                <h4 style="font-size: 15px; font-weight: 700; margin-bottom: 2px; color: #0f172a;">Кораби</h4>
+                <p style="font-size: 14px; margin-bottom: 0;">Регистрация на нови плавателни съдове с технически характеристики и имена на капитани.</p>
+            </div>
+        </div>
+
+        <div style="background: white; padding: 20px; border-radius: 14px; border: 1px solid #e2e8f0; display: flex; gap: 20px; align-items: center;">
+            <div style="background: #e0f2fe; color: #0284c7; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0;">2</div>
+            <div>
+                <h4 style="font-size: 15px; font-weight: 700; margin-bottom: 2px; color: #0f172a;">Разрешителни</h4>
+                <p style="font-size: 14px; margin-bottom: 0;">Издаване на стопански разрешителни за улов на регистрираните кораби с период на валидност.</p>
+            </div>
+        </div>
+
+        <div style="background: white; padding: 20px; border-radius: 14px; border: 1px solid #e2e8f0; display: flex; gap: 20px; align-items: center;">
+            <div style="background: #e0f2fe; color: #0284c7; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0;">3</div>
+            <div>
+                <h4 style="font-size: 15px; font-weight: 700; margin-bottom: 2px; color: #0f172a;">Дневник за улов</h4>
+                <p style="font-size: 14px; margin-bottom: 0;">Вписване на килограми уловена риба и видове спрямо акостиранията на флота.</p>
+            </div>
+        </div>
+
+        <div style="background: white; padding: 20px; border-radius: 14px; border: 1px solid #e2e8f0; display: flex; gap: 20px; align-items: center;">
+            <div style="background: #e0f2fe; color: #0284c7; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0;">4</div>
+            <div>
+                <h4 style="font-size: 15px; font-weight: 700; margin-bottom: 2px; color: #0f172a;">Любителски билети</h4>
+                <p style="font-size: 14px; margin-bottom: 0;">Издаване на риболовни билети за граждани с автоматично калкулиране на цената и отстъпки през ЕГН.</p>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

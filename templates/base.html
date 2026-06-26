@@ -2,39 +2,91 @@
 <html lang="bg">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ИАРА - Информационна Система</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f6f9; }
-        header { background-color: #004085; color: white; padding: 15px; text-align: center; }
-        nav { background-color: #343a40; display: flex; justify-content: center; }
-        nav a { color: white; padding: 14px 20px; text-decoration: none; text-align: center; }
-        nav a:hover { background-color: #495057; }
-        .container { padding: 20px; max-width: 1200px; margin: auto; background: white; margin-top: 20px; box-shadow: 0 0 10px rgba(0,0,0,0.1); minimum-height: 400px; }
-        footer { text-align: center; padding: 20px; font-size: 0.9em; color: #6c757d; margin-top: 40px; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { background-color: #f4f7fa; color: #1e293b; display: flex; flex-direction: column; min-height: 100vh; }
+        
+        header { background-color: #ffffff; border-bottom: 2px solid #e2e8f0; position: sticky; top: 0; z-index: 100; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02); }
+        .nav-container { max-width: 1200px; margin: 0 auto; padding: 18px 24px; display: flex; justify-content: space-between; align-items: center; }
+        .brand { font-size: 19px; font-weight: 700; color: #0f172a; text-decoration: none; letter-spacing: -0.3px; }
+        .brand span { color: #0284c7; }
+        
+        nav { display: flex; gap: 8px; align-items: center; }
+        nav a { color: #475569; text-decoration: none; padding: 10px 16px; border-radius: 10px; font-size: 14px; font-weight: 700; transition: all 0.2s; }
+        nav a:hover { color: #0f172a; background-color: #f1f5f9; }
+        .auth-btn { background-color: #0284c7; color: white !important; }
+        .auth-btn:hover { background-color: #0369a1; }
+        .logout-btn { color: #ef4444; }
+        .logout-btn:hover { background-color: #fef2f2; }
+        
+        main { flex: 1; max-width: 1200px; width: 100%; margin: 35px auto; padding: 0 24px; }
+        
+        h2 { font-size: 28px; font-weight: 700; color: #0f172a; margin-bottom: 8px; letter-spacing: -0.5px; }
+        p { color: #64748b; margin-bottom: 28px; font-size: 15px; line-height: 1.6; }
+        
+        .alert-box { padding: 14px 18px; border-radius: 12px; font-size: 14px; font-weight: 600; margin-bottom: 24px; border: 1px solid transparent; }
+        .alert-error { background-color: #fef2f2; color: #b91c1c; border-color: #fca5a5; }
+        .alert-success { background-color: #f0fdf4; color: #15803d; border-color: #bbf7d0; }
+
+        form { background: #ffffff !important; padding: 28px !important; border-radius: 18px !important; border: 1px solid #e2e8f0 !important; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.01) !important; margin-bottom: 35px !important; }
+        form h3 { font-size: 17px; margin-bottom: 22px; color: #0f172a; font-weight: 700; }
+        label { font-size: 13px; font-weight: 600; color: #334155; display: block; margin-bottom: 8px; }
+        
+        input[type="text"], input[type="password"], input[type="number"], input[type="date"], select { width: 100% !important; padding: 12px 16px !important; border: 1px solid #cbd5e1 !important; border-radius: 12px !important; background-color: #ffffff !important; font-size: 14px !important; color: #0f172a !important; transition: all 0.2s !important; }
+        input:focus, select:focus { outline: none !important; border-color: #0284c7 !important; box-shadow: 0 0 0 4px rgba(2, 132, 199, 0.12) !important; }
+        
+        button, input[type="submit"] { background-color: #0284c7 !important; color: white !important; font-weight: 600 !important; padding: 12px 22px !important; border-radius: 12px !important; border: none !important; cursor: pointer !important; transition: all 0.2s !important; font-size: 14px !important; }
+        button:hover, input[type="submit"]:hover { background-color: #0369a1 !important; transform: translateY(-1px); }
+        
+        table { width: 100% !important; border-collapse: separate !important; border-spacing: 0 !important; background: #ffffff !important; border-radius: 18px !important; overflow: hidden !important; border: 1px solid #e2e8f0 !important; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.01) !important; }
+        th { background: #f8fafc !important; color: #475569 !important; text-align: left !important; padding: 16px 22px !important; font-size: 11px !important; font-weight: 700 !important; letter-spacing: 0.5px !important; text-transform: uppercase !important; border-bottom: 1px solid #e2e8f0 !important; }
+        td { padding: 16px 22px !important; border-bottom: 1px solid #f1f5f9 !important; color: #334155 !important; font-size: 14px !important; }
+        tr:last-child td { border-bottom: none !important; }
+        tr:hover td { background-color: #f8fafc !important; }
+        
+        footer { background-color: #ffffff; color: #94a3b8; text-align: center; padding: 22px 0; font-size: 13px; margin-top: auto; border-top: 1px solid #e2e8f0; }
     </style>
 </head>
 <body>
+    <header>
+        <div class="nav-container">
+            <a href="/" class="brand">ИАРА <span>Централен Портал</span></a>
+            <nav>
+                <a href="/">Табло</a>
+                <a href="/ships">Кораби</a>
+                <a href="/permits">Разрешителни</a>
+                <a href="/logbook">Дневник</a>
+                <a href="/tickets">Билети</a>
+                <a href="/inspections">Инспекции</a>
+                {% if session.get('logged_in') %}
+                    <a href="/logout" class="logout-btn">Изход</a>
+                {% else %}
+                    <a href="/login" class="auth-btn">Вход</a>
+                {% endif %}
+            </nav>
+        </div>
+    </header>
 
-<header>
-    <h2>ИАРА - Изпълнителна агенция по рибарство и аквакултури</h2>
-</header>
+    <main>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <div class="alert-box alert-{% if category == 'error' %}error{% else %}success{% endif %}">
+                {{ message }}
+              </div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
 
-<nav>
-    <a href="{{ url_for('home') }}">Табло</a>
-    <a href="{{ url_for('ships') }}">Регистър Кораби</a>
-    <a href="{{ url_for('permits') }}">Разрешителни</a>
-    <a href="{{ url_for('logbook') }}">Електронен Дневник</a>
-    <a href="{{ url_for('tickets') }}">Любителски Билети</a>
-    <a href="{{ url_for('inspections') }}">Инспекции</a>
-</nav>
+        {% block content %}
+        {% endblock %}
+    </main>
 
-<div class="container">
-    {% block content %}{% endblock %}
-</div>
-
-<footer>
-    <p>&copy; 2026 ИАРА Информационна Система. Разработено по задание на ТехноЛогика.</p>
-</footer>
-
+    <footer>
+        &copy; 2026 Изпълнителна агенция по рибарство и аквакултури. Всички права запазени.
+    </footer>
 </body>
 </html>
